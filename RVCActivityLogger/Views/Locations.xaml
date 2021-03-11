@@ -1,0 +1,64 @@
+﻿<mah:MetroWindow x:Class="RVCActivityLogger.Views.Locations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:RVCActivityLogger.Views"
+        mc:Ignorable="d"
+        TitleCharacterCasing="Normal"
+        Title="Administrative Task" 
+        Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow" 
+        ShowMaxRestoreButton="False" ShowMinButton="False" 
+        ResizeMode="NoResize" 
+        Loaded="MetroWindow_Loaded">
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <!-- Content -->
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Text="Manage Locations" Margin="0 10" Foreground="#244d81" />
+        <DataGrid x:Name="dgLocations" Grid.Row="1" Grid.Column="0" IsReadOnly="True" SelectionMode="Single" Style="{DynamicResource MahApps.Styles.DataGrid.Azure}" Margin="0 15 0 0" ScrollViewer.VerticalScrollBarVisibility="Auto" SelectedCellsChanged="dgLocations_SelectedCellsChanged" />
+
+        <Grid Grid.Row="1" Grid.Column="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock Text="Code               " FontSize="12" VerticalAlignment="Center" FontWeight="Bold" Foreground="#244d81" />
+                <TextBox x:Name="txtLocCode" Margin="20 10 20 10" Width="250" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.Watermark="enter location code"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                <TextBlock Text="Description    " FontSize="12" VerticalAlignment="Center" FontWeight="Bold" Foreground="#244d81" />
+                <TextBox x:Name="txtLocDescription" Margin="20 10 20 10" Width="250" mah:TextBoxHelper.ClearTextButton="True" mah:TextBoxHelper.Watermark="enter description"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Orientation="Horizontal">
+                <mah:ToggleSwitch x:Name="switchStatus" IsOn="True" OnContent="Enabled" OffContent="Disabled" Header="Status" 
+                              mah:HeaderedControlHelper.HeaderFontSize="12" mah:HeaderedControlHelper.HeaderFontWeight="Bold" 
+                              mah:HeaderedControlHelper.HeaderForeground="#244d81" />
+            </StackPanel>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnSaveUpdate" Content="Save" Margin="15 10" Width="55" Click="btnSaveUpdate_Click" />
+                <Button x:Name="btnClear" Content="Clear" Margin="15 10" Width="55" Click="btnClear_Click" />
+                <!--<Button x:Name="btnDelete" Content="Delete" Margin="15 10" Width="55" Click="btnDelete_Click" />-->
+            </StackPanel>
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 35 0 25">
+                <iconPacks:PackIconFontAwesome Kind="MapMarkedAltSolid" Width="84" Height="84" Foreground="#e8b80e" />
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</mah:MetroWindow>

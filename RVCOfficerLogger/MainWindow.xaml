@@ -1,0 +1,161 @@
+﻿<mah:MetroWindow x:Class="RVCOfficerLogger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RVCOfficerLogger"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        mc:Ignorable="d"
+        TitleCharacterCasing="Normal"
+        Title="RVCPD Officer Activity Logger" 
+        Height="750" Width="1000" 
+        ResizeMode="CanResizeWithGrip" 
+        WindowStartupLocation="CenterScreen"
+        x:Name="MainWin"
+        GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+        Loaded="MainWin_Loaded" Icon="./Images/rvcpd.ico" ShowIconOnTitleBar="True">
+
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button x:Name="btnChangePassword" ToolTip="Change Password" Click="btnChangePassword_Click">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconFontAwesome Kind="KeySolid" Width="22" Height="22" />
+                    <TextBlock Text= "Change Password" Margin="10 0" />
+                </StackPanel>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
+
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Background="#e8b80e">
+                <TextBlock x:Name="lblStatus" Text="initializing..." Margin="30 0" FontSize="12" Foreground="#00234d" />
+            </StatusBarItem>
+        </StatusBar>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="1.2*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0" Margin="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="./Images/rvc-pd.png" Width="64" Margin="30 25 10 10" />
+                <TextBlock Grid.ColumnSpan="3" Text="Start an Activity Log" Margin="5 30 30 10" FontSize="36" FontWeight="Bold" HorizontalAlignment="Center" Foreground="#244d81" />
+                <Label x:Name="lblOffline" Grid.Column="2" Content="Offline Mode" Foreground="#e8b80e" FontSize="18" VerticalAlignment="Center" Visibility="Collapsed" />
+            </Grid>
+
+            <!-- startup icon -->
+            <StackPanel x:Name="startUpIcon" Grid.Row="2" Grid.RowSpan="9" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 125 0 25" Panel.ZIndex="1000">
+                <iconPacks:PackIconFontAwesome Kind="HistorySolid" Width="128" Height="128" Foreground="#244d81" />
+            </StackPanel>
+
+            <!-- end of starup icon -->
+
+            <Grid Grid.Row="1" Margin="20 15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0" Text="Select Employee" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <ComboBox x:Name="cmbOfficers" Grid.Column="1" mah:TextBoxHelper.Watermark="Who are you?" SelectionChanged="cmbOfficers_SelectionChanged" />
+
+                <TextBlock Grid.Column="2" Text="Incident Date" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <DatePicker x:Name="dpIncidentDate" Grid.Column="3" SelectedDate="{x:Static system:DateTime.Now}" DisplayDateStart="{x:Static system:DateTime.Now}" DisplayDateEnd="{x:Static system:DateTime.Now}"  />
+
+                <TextBlock Grid.Column="4" Text="Select Incident Type" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <ComboBox x:Name="cmbIncidentTypes" Grid.Column="5" mah:TextBoxHelper.Watermark="What type?" SelectionChanged="cmbIncidentTypes_SelectionChanged" />
+            </Grid>
+
+            <TextBlock x:Name="lblOfficer" Grid.Row="2" Text="Welcome back, Officer [name]" Foreground="#244d81" FontSize="22" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+            <TextBlock x:Name="lblLogText" Grid.Row="3" Foreground="#244d81" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Hyperlink x:Name="hlViewLogs" Click="hlViewLogs_Click" Foreground="#244d81" FontSize="14">
+                    You can now enter a log or click me to view logs.
+                </Hyperlink> 
+            </TextBlock>
+
+            <Grid x:Name="grid1" Grid.Row="4" Margin="20 45 20 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Select Location" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <ComboBox x:Name="cmbLocations" Grid.Column="1" mah:TextBoxHelper.Watermark="Pick location" />
+
+                <TextBlock Grid.Column="2" Text="Start Time" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="45 0 15 0" />
+                <mah:TimePicker x:Name="startTime" Grid.Column="3" SelectedDateTime="{x:Static system:DateTime.Now}" PickerVisibility="All"  />
+
+                <TextBlock Grid.Column="4" Text="End Time" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="45 0 15 0" />
+                <mah:TimePicker x:Name="endTime" Grid.Column="5" SelectedDateTime="{x:Static system:DateTime.Now}" PickerVisibility="All"  />
+            </Grid>
+
+            <RichTextBox x:Name="txtDescription" Grid.Row="5" Margin="25 15" mah:TextBoxHelper.Watermark="incident description goes here..." mah:TextBoxHelper.ClearTextButton="True" />
+
+            <Grid x:Name="grid2" Grid.Row="6" Margin="20 20 20 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="185" /> 
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Money Transport" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <TextBox x:Name="txtMoneyTransport" Grid.Column="1" mah:TextBoxHelper.Watermark="enter MT number" mah:TextBoxHelper.ClearTextButton="True"  />
+            </Grid>
+
+            <Grid x:Name="grid3" Grid.Row="7" Margin="20 20 20 20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="153" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="153" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="153" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="153" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Vehicle" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <TextBox x:Name="txtVehicle" Grid.Column="1" mah:TextBoxHelper.Watermark="enter vehicle" mah:TextBoxHelper.ClearTextButton="True" />
+
+                <TextBlock Grid.Column="2" Text="Start Mileage" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <mah:NumericUpDown x:Name="numStartMileage" Grid.Column="3" mah:TextBoxHelper.Watermark="enter mileage" mah:TextBoxHelper.ClearTextButton="True" StringFormat="" Minimum="0" Maximum="500000" />
+
+                <TextBlock Grid.Column="4" Text="End Mileage" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <mah:NumericUpDown x:Name="numEndMileage" Grid.Column="5" mah:TextBoxHelper.Watermark="enter mileage" mah:TextBoxHelper.ClearTextButton="True" StringFormat="" Minimum="0" Maximum="500000" />
+
+                <TextBlock Grid.Column="6" Text="Fuel" FontWeight="Bold" Foreground="#244d81" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="15 0" />
+                <mah:NumericUpDown x:Name="numFuel" Grid.Column="7" mah:TextBoxHelper.Watermark="enter fuel" mah:TextBoxHelper.ClearTextButton="True" StringFormat="" Minimum="0" Maximum="500000" ValueChanged="numFuel_ValueChanged" />
+            </Grid>
+
+            <StackPanel x:Name="stackPanel1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button x:Name="btnSaveLog" Content="Save Log" Height="35" Width="100" Click="btnSaveLog_Click" />
+                <mah:ProgressRing x:Name="prSaveLog" IsActive="False" Margin="25 0" Visibility="Collapsed" IsLarge="False"/>
+            </StackPanel>
+
+        </Grid>
+    </DockPanel> 
+</mah:MetroWindow>
